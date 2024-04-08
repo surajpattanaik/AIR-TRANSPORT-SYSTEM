@@ -1,0 +1,6 @@
+com\air\proxy\JwtAuthServerFeignClient2.class
+com\air\configuration\JwtFeignConfiguration.class
+com\air\configuration\JwtAuthenticationFilter.class
+com\air\configuration\WebClientFeignClient.class
+com\air\ApiGatewayApplication.class
+com\air\configuration\RouterValidator.class
