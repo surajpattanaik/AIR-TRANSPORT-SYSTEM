@@ -1,0 +1,295 @@
+============jwt================
+http://localhost:8080/api/auth/signup
+{
+  "username":"admin",
+  "email": "admin@gmail.com",
+  "password": "12345678",
+  "role": ["admin"]
+}
+http://localhost:8080/api/auth/signin
+{
+  "username":"admin",
+  "password": "12345678"
+}
+
+http://localhost:8080/api/any-endpoint
+header > Authorization Bearer _token_
+
+=========================================
+
+=============airport======================
+post: http://localhost:8080/api/airports
+body:
+{
+  "name":"airport-1",
+  "location": "chennai"
+}
+get: http://localhost:8080/api/airports : get all airports:
+[
+    {
+        "id": "A0025",
+        "name": "airport-1",
+        "location": "bbsr",
+        "schedules": [
+            {
+                "id": "A0031",
+                "planeId": "A0028",
+                "sourceAirportId": "A0025",
+                "destinationAirportId": "A0026",
+                "departureTime": "2024-04-10 08:00:00",
+                "arrivalTime": "2024-04-10 14:00:00"
+            },
+            {
+                "id": "A0033",
+                "planeId": "A0030",
+                "sourceAirportId": "A0025",
+                "destinationAirportId": "A0027",
+                "departureTime": "2024-04-10 08:00:00",
+                "arrivalTime": "2024-04-10 14:00:00"
+            }
+        ],
+        "bookings": [
+            {
+                "id": "A0039",
+                "scheduleId": "A0031",
+                "passengerId": "A0020",
+                "seatNumber": 20
+            },
+            {
+                "id": "A0042",
+                "scheduleId": "A0031",
+                "passengerId": "A0037",
+                "seatNumber": 21
+            },
+            {
+                "id": "A0041",
+                "scheduleId": "A0033",
+                "passengerId": "A0036",
+                "seatNumber": 21
+            }
+        ]
+    }
+]
+=============plane======================
+post http://localhost:8080/api/planes
+body:
+{
+  "name":"plane-1",
+  "capacity": 70
+}
+get: all planes:
+[
+    {
+        "id": "A0028",
+        "name": "plane-1",
+        "capacity": 50,
+        "schedules": [
+            {
+                "id": "A0031",
+                "planeId": "A0028",
+                "sourceAirportId": "A0025",
+                "destinationAirportId": "A0026",
+                "departureTime": "2024-04-10 08:00:00",
+                "arrivalTime": "2024-04-10 14:00:00"
+            }
+        ],
+        "bookings": [
+            {
+                "id": "A0039",
+                "scheduleId": "A0031",
+                "passengerId": "A0020",
+                "seatNumber": 20
+            },
+            {
+                "id": "A0042",
+                "scheduleId": "A0031",
+                "passengerId": "A0037",
+                "seatNumber": 21
+            }
+        ]
+    },
+    {
+        "id": "A0029",
+        "name": "plane-2",
+        "capacity": 60,
+        "schedules": [
+            {
+                "id": "A0032",
+                "planeId": "A0029",
+                "sourceAirportId": "A0026",
+                "destinationAirportId": "A0027",
+                "departureTime": "2024-04-10 08:00:00",
+                "arrivalTime": "2024-04-10 14:00:00"
+            }
+        ],
+        "bookings": [
+            {
+                "id": "A0040",
+                "scheduleId": "A0032",
+                "passengerId": "A0035",
+                "seatNumber": 21
+            },
+            {
+                "id": "A0043",
+                "scheduleId": "A0032",
+                "passengerId": "A0038",
+                "seatNumber": 21
+            }
+        ]
+    },
+    {
+        "id": "A0030",
+        "name": "plane-3",
+        "capacity": 70,
+        "schedules": [
+            {
+                "id": "A0033",
+                "planeId": "A0030",
+                "sourceAirportId": "A0025",
+                "destinationAirportId": "A0027",
+                "departureTime": "2024-04-10 08:00:00",
+                "arrivalTime": "2024-04-10 14:00:00"
+            }
+        ],
+        "bookings": [
+            {
+                "id": "A0041",
+                "scheduleId": "A0033",
+                "passengerId": "A0036",
+                "seatNumber": 21
+            }
+        ]
+    }
+]
+============schedule====================
+post http://localhost:8080/api/schedules
+body:
+{
+  "planeId": "A0028",
+  "sourceAirportId": "A0025",
+  "destinationAirportId": "A0026",
+  "departureTime": "2024-04-10T08:00:00",
+  "arrivalTime": "2024-04-10T14:00:00"
+}
+get: all schedule:
+[
+    {
+        "id": "A0031",
+        "planeId": "A0028",
+        "sourceAirportId": "A0025",
+        "destinationAirportId": "A0026",
+        "departureTime": "2024-04-10 08:00:00",
+        "arrivalTime": "2024-04-10 14:00:00",
+        "bookings": []
+    },
+    {
+        "id": "A0032",
+        "planeId": "A0029",
+        "sourceAirportId": "A0026",
+        "destinationAirportId": "A0027",
+        "departureTime": "2024-04-10 08:00:00",
+        "arrivalTime": "2024-04-10 14:00:00",
+        "bookings": []
+    },
+    {
+        "id": "A0033",
+        "planeId": "A0030",
+        "sourceAirportId": "A0025",
+        "destinationAirportId": "A0027",
+        "departureTime": "2024-04-10 08:00:00",
+        "arrivalTime": "2024-04-10 14:00:00",
+        "bookings": []
+    }
+]
+==============passengers==================
+post request body:
+{
+    "name":"suraj"
+}
+
+get response body: [
+    {
+        "id": "A0020",
+        "name": "suraj",
+        "bookings": [
+            {
+                "id": "A0039",
+                "scheduleId": "A0031",
+                "passengerId": "A0020",
+                "seatNumber": 20
+            }
+        ]
+    },
+    {
+        "id": "A0035",
+        "name": "rahil",
+        "bookings": [
+            {
+                "id": "A0040",
+                "scheduleId": "A0032",
+                "passengerId": "A0035",
+                "seatNumber": 21
+            }
+        ]
+    },
+    {
+        "id": "A0036",
+        "name": "arvind",
+        "bookings": [
+            {
+                "id": "A0041",
+                "scheduleId": "A0033",
+                "passengerId": "A0036",
+                "seatNumber": 21
+            }
+        ]
+    },
+    {
+        "id": "A0037",
+        "name": "rahul",
+        "bookings": [
+            {
+                "id": "A0042",
+                "scheduleId": "A0031",
+                "passengerId": "A0037",
+                "seatNumber": 21
+            }
+        ]
+    },
+    {
+        "id": "A0038",
+        "name": "cp",
+        "bookings": [
+            {
+                "id": "A0043",
+                "scheduleId": "A0032",
+                "passengerId": "A0038",
+                "seatNumber": 21
+            }
+        ]
+    }
+]
+==========booking
+post request body:
+{
+    "scheduleId": "A0031",
+    "passengerId": "A0020",
+    "seatNumber": 20
+}
+
+get response body: all:
+
+[
+    {
+        "id": "A0052",
+        "scheduleId": "A0050",
+        "passengerId": "A0020",
+        "seatNumber": 53
+    },
+    {
+        "id": "A0066",
+        "scheduleId": "A0065",
+        "passengerId": "A0036",
+        "seatNumber": 21
+    }
+]

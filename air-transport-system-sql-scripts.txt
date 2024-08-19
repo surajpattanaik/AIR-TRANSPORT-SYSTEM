@@ -1,0 +1,67 @@
+use air_transport_system;
+
+CREATE TABLE Airport (
+    id VARCHAR(5) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    location VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Plane (
+    id VARCHAR(5) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    capacity INT NOT NULL
+);
+
+CREATE TABLE Schedule (
+    id VARCHAR(5) PRIMARY KEY,
+    plane_id VARCHAR(5) NOT NULL,
+    departure_time DATETIME NOT NULL,
+    arrival_time DATETIME NOT NULL,
+    source_airport_id VARCHAR(5),
+    destination_airport_id VARCHAR(5),
+    FOREIGN KEY (plane_id) REFERENCES Plane(id),
+    FOREIGN KEY (source_airport_id) REFERENCES Airport(id),
+    FOREIGN KEY (destination_airport_id) REFERENCES Airport(id)
+);
+
+CREATE TABLE Passenger (
+    id VARCHAR(5) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Booking (
+    id VARCHAR(5) PRIMARY KEY,
+    schedule_id VARCHAR(5) NOT NULL,
+    passenger_id VARCHAR(5) NOT NULL,
+    seat_number INT,
+    FOREIGN KEY (schedule_id) REFERENCES Schedule(id),
+    FOREIGN KEY (passenger_id) REFERENCES Passenger(id)
+);
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(20) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    password VARCHAR(120) NOT NULL
+);
+
+CREATE UNIQUE INDEX UK_username ON users (username);
+CREATE UNIQUE INDEX UK_email ON users (email);
+
+CREATE TABLE roles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE user_roles (
+    user_id INT,
+    role_id INT,
+    PRIMARY KEY (user_id, role_id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (role_id) REFERENCES roles(id)
+);
+
+INSERT INTO roles(name) VALUES('ROLE_USER');
+INSERT INTO roles(name) VALUES('ROLE_MODERATOR');
+INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+
